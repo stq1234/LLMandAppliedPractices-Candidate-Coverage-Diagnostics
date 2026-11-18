@@ -1,0 +1,19 @@
+﻿domain,strategy,rank_bin,n_candidates,selector_usable_n,candidate_success_rate,candidate_success_ci95,selector_usable_rate,false_positive_rate_among_selector_usable,false_positive_rate_ci95,mean_selector_adequacy,mean_selector_fluency
+paired_synthetic,diverse,rank_2_4,48,48,0.9166666666666666,"(0.75, 1.0)",1,0.08333333333333333,"(0.0, 0.25)",5,4.979166666666667
+paired_synthetic,diverse,rank_5_8,64,52,0.796875,"(0.65625, 0.9375)",0.8125,0.0625,"(0.0, 0.20833333333333334)",4.578125,4.59375
+paired_synthetic,diverse,top_1,16,16,0.9375,"(0.8125, 1.0)",1,0.0625,"(0.0, 0.1875)",5,5
+paired_synthetic,ordinary,rank_2_4,48,48,0.8958333333333334,"(0.6875, 1.0)",1,0.10416666666666667,"(0.0, 0.3125)",5,4.979166666666667
+paired_synthetic,ordinary,rank_5_8,64,52,0.765625,"(0.59375, 0.9375)",0.8125,0.0625,"(0.0, 0.14814814814814814)",4.578125,4.59375
+paired_synthetic,ordinary,top_1,16,16,0.875,"(0.625, 1.0)",1,0.125,"(0.0, 0.375)",5,5
+product_docs,diverse,rank_2_4,48,48,1,"(1.0, 1.0)",1,0,"(0.0, 0.0)",5,5
+product_docs,diverse,rank_5_8,64,62,0.984375,"(0.953125, 1.0)",0.96875,0,"(0.0, 0.0)",4.9375,4.84375
+product_docs,diverse,top_1,16,16,1,"(1.0, 1.0)",1,0,"(0.0, 0.0)",5,5
+product_docs,ordinary,rank_2_4,48,48,1,"(1.0, 1.0)",1,0,"(0.0, 0.0)",5,4.979166666666667
+product_docs,ordinary,rank_5_8,64,63,0.984375,"(0.953125, 1.0)",0.984375,0,"(0.0, 0.0)",4.96875,4.875
+product_docs,ordinary,top_1,16,16,1,"(1.0, 1.0)",1,0,"(0.0, 0.0)",5,5
+standards,diverse,rank_2_4,48,47,0.8541666666666666,"(0.5833333333333334, 1.0)",0.9791666666666666,0.125,"(0.0, 0.3829787234042553)",5,5
+standards,diverse,rank_5_8,64,60,0.84375,"(0.578125, 1.0)",0.9375,0.109375,"(0.0, 0.375)",4.875,5
+standards,diverse,top_1,16,16,0.875,"(0.625, 1.0)",1,0.125,"(0.0, 0.375)",5,5
+standards,ordinary,rank_2_4,48,48,0.875,"(0.625, 1.0)",1,0.125,"(0.0, 0.375)",5,5
+standards,ordinary,rank_5_8,64,64,0.875,"(0.625, 1.0)",1,0.125,"(0.0, 0.375)",5,4.984375
+standards,ordinary,top_1,16,16,0.875,"(0.625, 1.0)",1,0.125,"(0.0, 0.375)",5,5

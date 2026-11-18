@@ -1,0 +1,744 @@
+{
+  "scope": {
+    "status": "post_hoc_replay",
+    "independent_evaluation": false,
+    "cases": 24,
+    "clusters": 20,
+    "candidate_rows": 816,
+    "generation_timing_rows": 816,
+    "runs": 2,
+    "candidate_budgets": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "strategies": [
+      "ordinary",
+      "diverse"
+    ],
+    "seed_scope_note": "Seeds were remapped to run labels; generator randomness depends on the historical API implementation."
+  },
+  "definitions": {
+    "usable_candidate": "rule_pass AND independent evaluator eval_usable",
+    "filtered_selection": "rule_pass and selector_pass candidates ranked by selector adequacy, fluency, then index",
+    "score_rank": "selector adequacy descending, fluency descending, then candidate index; tied scores are not separated probabilistically",
+    "merge": "character-bigram multiset F1 after NFKC/casefold and punctuation removal; near-duplicate families are connected components at 0.90",
+    "bootstrap": "2000 deterministic cluster bootstrap resamples over the 20 de-identified source/pair clusters"
+  },
+  "sampling_comparison": {
+    "all": {
+      "n_pairs": 48,
+      "n_clusters": 20,
+      "metrics": {
+        "pool_coverage": {
+          "ordinary": {
+            "mean": 0.9583333333333334,
+            "ci95_low": 0.8636363636363636,
+            "ci95_high": 1,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "diverse": {
+            "mean": 0.9791666666666666,
+            "ci95_low": 0.9318181818181818,
+            "ci95_high": 1,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "paired_delta_diverse_minus_ordinary": 0.020833333333333332,
+          "paired_delta_ci95": [
+            0,
+            0.06818181818181818
+          ]
+        },
+        "valid_candidate_count": {
+          "ordinary": {
+            "mean": 7.1875,
+            "ci95_low": 6.36,
+            "ci95_high": 7.913043478260869,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "diverse": {
+            "mean": 7.208333333333333,
+            "ci95_low": 6.456521739130435,
+            "ci95_high": 7.8125,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "paired_delta_diverse_minus_ordinary": 0.020833333333333332,
+          "paired_delta_ci95": [
+            -0.175,
+            0.19230769230769232
+          ]
+        },
+        "distinct_valid_count_0_90": {
+          "ordinary": {
+            "mean": 2.8958333333333335,
+            "ci95_low": 1.825,
+            "ci95_high": 4.04,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "diverse": {
+            "mean": 3.1666666666666665,
+            "ci95_low": 2.159090909090909,
+            "ci95_high": 4.2,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "paired_delta_diverse_minus_ordinary": 0.2708333333333333,
+          "paired_delta_ci95": [
+            -0.021739130434782608,
+            0.5217391304347826
+          ]
+        },
+        "mean_pairwise_similarity": {
+          "ordinary": {
+            "mean": 0.9116999514963134,
+            "ci95_low": 0.8768275076930808,
+            "ci95_high": 0.9481826217917766,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "diverse": {
+            "mean": 0.8983054324608509,
+            "ci95_low": 0.8661699833069282,
+            "ci95_high": 0.9324520441448855,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "paired_delta_diverse_minus_ordinary": -0.013394519035462482,
+          "paired_delta_ci95": [
+            -0.02511039633453435,
+            -0.0035806869650017053
+          ]
+        },
+        "filtered_success": {
+          "ordinary": {
+            "mean": 0.9166666666666666,
+            "ci95_low": 0.7916666666666666,
+            "ci95_high": 1,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "diverse": {
+            "mean": 0.9375,
+            "ci95_low": 0.8333333333333334,
+            "ci95_high": 1,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "paired_delta_diverse_minus_ordinary": 0.020833333333333332,
+          "paired_delta_ci95": [
+            0,
+            0.0625
+          ]
+        },
+        "medoid_success": {
+          "ordinary": {
+            "mean": 0.875,
+            "ci95_low": 0.72,
+            "ci95_high": 1,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "diverse": {
+            "mean": 0.8958333333333334,
+            "ci95_low": 0.7391304347826086,
+            "ci95_high": 1,
+            "n_rows": 48,
+            "n_clusters": 20
+          },
+          "paired_delta_diverse_minus_ordinary": 0.020833333333333332,
+          "paired_delta_ci95": [
+            0,
+            0.0625
+          ]
+        }
+      }
+    },
+    "standards": {
+      "n_pairs": 16,
+      "n_clusters": 8,
+      "metrics": {
+        "pool_coverage": {
+          "ordinary": {
+            "mean": 0.875,
+            "ci95_low": 0.625,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 0.9375,
+            "ci95_low": 0.8125,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": 0.0625,
+          "paired_delta_ci95": [
+            0,
+            0.1875
+          ]
+        },
+        "valid_candidate_count": {
+          "ordinary": {
+            "mean": 7,
+            "ci95_low": 5,
+            "ci95_high": 8,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 6.8125,
+            "ci95_low": 4.8125,
+            "ci95_high": 7.9375,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": -0.1875,
+          "paired_delta_ci95": [
+            -0.5625,
+            0.125
+          ]
+        },
+        "distinct_valid_count_0_90": {
+          "ordinary": {
+            "mean": 1.3125,
+            "ci95_low": 0.75,
+            "ci95_high": 1.9375,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 1.625,
+            "ci95_low": 1,
+            "ci95_high": 2.25,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": 0.3125,
+          "paired_delta_ci95": [
+            0,
+            0.6875
+          ]
+        },
+        "mean_pairwise_similarity": {
+          "ordinary": {
+            "mean": 0.9728229561139967,
+            "ci95_low": 0.9400169916674073,
+            "ci95_high": 0.9974888392857143,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 0.9517172004935813,
+            "ci95_low": 0.9113019072215387,
+            "ci95_high": 0.9875714080223574,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": -0.021105755620415355,
+          "paired_delta_ci95": [
+            -0.04830556851747781,
+            0.0012707462454169538
+          ]
+        },
+        "filtered_success": {
+          "ordinary": {
+            "mean": 0.875,
+            "ci95_low": 0.625,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 0.875,
+            "ci95_low": 0.625,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": 0,
+          "paired_delta_ci95": [
+            0,
+            0
+          ]
+        },
+        "medoid_success": {
+          "ordinary": {
+            "mean": 0.875,
+            "ci95_low": 0.625,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 0.875,
+            "ci95_low": 0.625,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": 0,
+          "paired_delta_ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "product_docs": {
+      "n_pairs": 16,
+      "n_clusters": 8,
+      "metrics": {
+        "pool_coverage": {
+          "ordinary": {
+            "mean": 1,
+            "ci95_low": 1,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 1,
+            "ci95_low": 1,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": 0,
+          "paired_delta_ci95": [
+            0,
+            0
+          ]
+        },
+        "valid_candidate_count": {
+          "ordinary": {
+            "mean": 7.9375,
+            "ci95_low": 7.8125,
+            "ci95_high": 8,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 7.9375,
+            "ci95_low": 7.8125,
+            "ci95_high": 8,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": 0,
+          "paired_delta_ci95": [
+            0,
+            0
+          ]
+        },
+        "distinct_valid_count_0_90": {
+          "ordinary": {
+            "mean": 2.375,
+            "ci95_low": 1.4375,
+            "ci95_high": 3.6875,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 2.5625,
+            "ci95_low": 1.6875,
+            "ci95_high": 3.75,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": 0.1875,
+          "paired_delta_ci95": [
+            -0.4375,
+            0.6875
+          ]
+        },
+        "mean_pairwise_similarity": {
+          "ordinary": {
+            "mean": 0.925808140628588,
+            "ci95_low": 0.8979841579291901,
+            "ci95_high": 0.9484412466835898,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 0.9133874658328608,
+            "ci95_low": 0.8849351835259817,
+            "ci95_high": 0.9334749488930656,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": -0.012420674795727144,
+          "paired_delta_ci95": [
+            -0.022105242094638086,
+            -0.0015605372848542937
+          ]
+        },
+        "filtered_success": {
+          "ordinary": {
+            "mean": 1,
+            "ci95_low": 1,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 1,
+            "ci95_low": 1,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": 0,
+          "paired_delta_ci95": [
+            0,
+            0
+          ]
+        },
+        "medoid_success": {
+          "ordinary": {
+            "mean": 1,
+            "ci95_low": 1,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "diverse": {
+            "mean": 1,
+            "ci95_low": 1,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 8
+          },
+          "paired_delta_diverse_minus_ordinary": 0,
+          "paired_delta_ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "paired_synthetic": {
+      "n_pairs": 16,
+      "n_clusters": 4,
+      "metrics": {
+        "pool_coverage": {
+          "ordinary": {
+            "mean": 1,
+            "ci95_low": 1,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "diverse": {
+            "mean": 1,
+            "ci95_low": 1,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "paired_delta_diverse_minus_ordinary": 0,
+          "paired_delta_ci95": [
+            0,
+            0
+          ]
+        },
+        "valid_candidate_count": {
+          "ordinary": {
+            "mean": 6.625,
+            "ci95_low": 5.4375,
+            "ci95_high": 7.75,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "diverse": {
+            "mean": 6.875,
+            "ci95_low": 6,
+            "ci95_high": 7.75,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "paired_delta_diverse_minus_ordinary": 0.25,
+          "paired_delta_ci95": [
+            0,
+            0.5625
+          ]
+        },
+        "distinct_valid_count_0_90": {
+          "ordinary": {
+            "mean": 5,
+            "ci95_low": 3,
+            "ci95_high": 7.125,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "diverse": {
+            "mean": 5.3125,
+            "ci95_low": 3.75,
+            "ci95_high": 7.0625,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "paired_delta_diverse_minus_ordinary": 0.3125,
+          "paired_delta_ci95": [
+            -0.125,
+            0.75
+          ]
+        },
+        "mean_pairwise_similarity": {
+          "ordinary": {
+            "mean": 0.8364687577463557,
+            "ci95_low": 0.7828192495641566,
+            "ci95_high": 0.8839350273439541,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "diverse": {
+            "mean": 0.8298116310561108,
+            "ci95_low": 0.7903681411449526,
+            "ci95_high": 0.8663818758781929,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "paired_delta_diverse_minus_ordinary": -0.006657126690244951,
+          "paired_delta_ci95": [
+            -0.019176836360441707,
+            0.005862582979951805
+          ]
+        },
+        "filtered_success": {
+          "ordinary": {
+            "mean": 0.875,
+            "ci95_low": 0.625,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "diverse": {
+            "mean": 0.9375,
+            "ci95_low": 0.8125,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "paired_delta_diverse_minus_ordinary": 0.0625,
+          "paired_delta_ci95": [
+            0,
+            0.1875
+          ]
+        },
+        "medoid_success": {
+          "ordinary": {
+            "mean": 0.75,
+            "ci95_low": 0.4375,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "diverse": {
+            "mean": 0.8125,
+            "ci95_low": 0.4375,
+            "ci95_high": 1,
+            "n_rows": 16,
+            "n_clusters": 4
+          },
+          "paired_delta_diverse_minus_ordinary": 0.0625,
+          "paired_delta_ci95": [
+            0,
+            0.1875
+          ]
+        }
+      }
+    }
+  },
+  "merge_replay_k8": {
+    "ordinary": {
+      "raw_medoid": {
+        "selection_success": 0.875,
+        "coverage": 0.9583333333333334,
+        "changed_selection_vs_raw": 0.0,
+        "paired_success_delta_vs_raw": 0.0,
+        "paired_success_delta_ci95": [
+          null,
+          null
+        ],
+        "n_pools": 48
+      },
+      "normalized_dedup_medoid": {
+        "selection_success": 0.875,
+        "coverage": 0.9583333333333334,
+        "changed_selection_vs_raw": 0.14583333333333334,
+        "paired_success_delta_vs_raw": 0,
+        "paired_success_delta_ci95": [
+          0,
+          0
+        ],
+        "n_pools": 48
+      },
+      "near_duplicate_majority_medoid": {
+        "selection_success": 0.875,
+        "coverage": 0.9583333333333334,
+        "changed_selection_vs_raw": 0.16666666666666666,
+        "paired_success_delta_vs_raw": 0,
+        "paired_success_delta_ci95": [
+          0,
+          0
+        ],
+        "n_pools": 48
+      }
+    },
+    "diverse": {
+      "raw_medoid": {
+        "selection_success": 0.8958333333333334,
+        "coverage": 0.9791666666666666,
+        "changed_selection_vs_raw": 0.0,
+        "paired_success_delta_vs_raw": 0.0,
+        "paired_success_delta_ci95": [
+          null,
+          null
+        ],
+        "n_pools": 48
+      },
+      "normalized_dedup_medoid": {
+        "selection_success": 0.8958333333333334,
+        "coverage": 0.9791666666666666,
+        "changed_selection_vs_raw": 0.041666666666666664,
+        "paired_success_delta_vs_raw": 0,
+        "paired_success_delta_ci95": [
+          0,
+          0
+        ],
+        "n_pools": 48
+      },
+      "near_duplicate_majority_medoid": {
+        "selection_success": 0.9166666666666666,
+        "coverage": 0.9791666666666666,
+        "changed_selection_vs_raw": 0.20833333333333334,
+        "paired_success_delta_vs_raw": 0.020833333333333332,
+        "paired_success_delta_ci95": [
+          0,
+          0.0625
+        ],
+        "n_pools": 48
+      }
+    },
+    "all": {
+      "raw_medoid": {
+        "selection_success": 0.8854166666666666,
+        "coverage": 0.96875,
+        "changed_selection_vs_raw": 0.0,
+        "paired_success_delta_vs_raw": 0.0,
+        "paired_success_delta_ci95": [
+          null,
+          null
+        ],
+        "n_pools": 96
+      },
+      "normalized_dedup_medoid": {
+        "selection_success": 0.8854166666666666,
+        "coverage": 0.96875,
+        "changed_selection_vs_raw": 0.09375,
+        "paired_success_delta_vs_raw": 0,
+        "paired_success_delta_ci95": [
+          0,
+          0
+        ],
+        "n_pools": 96
+      },
+      "near_duplicate_majority_medoid": {
+        "selection_success": 0.8958333333333334,
+        "coverage": 0.96875,
+        "changed_selection_vs_raw": 0.1875,
+        "paired_success_delta_vs_raw": 0.010416666666666666,
+        "paired_success_delta_ci95": [
+          0,
+          0.03125
+        ],
+        "n_pools": 96
+      }
+    }
+  },
+  "high_score_tail": {
+    "overall": {
+      "n_pools": 96,
+      "top1_success_rate": 0.9270833333333334,
+      "rank_2_8_success_rate": 0.8958333333333334,
+      "paired_top1_minus_rank_2_8": 0.03125000000000001,
+      "paired_delta_ci95": [
+        7.240584943207542e-18,
+        0.07142857142857142
+      ],
+      "top1_selector_usable_false_positive_n": 7
+    },
+    "standards": {
+      "n_pools": 32,
+      "top1_success_rate": 0.875,
+      "rank_2_8_success_rate": 0.8616071428571429,
+      "paired_top1_minus_rank_2_8": 0.013392857142857146,
+      "paired_delta_ci95": [
+        -0.008928571428571428,
+        0.04017857142857144
+      ],
+      "top1_selector_usable_false_positive_n": 4
+    },
+    "product_docs": {
+      "n_pools": 32,
+      "top1_success_rate": 1,
+      "rank_2_8_success_rate": 0.9910714285714286,
+      "paired_top1_minus_rank_2_8": 0.008928571428571432,
+      "paired_delta_ci95": [
+        0,
+        0.026785714285714295
+      ],
+      "top1_selector_usable_false_positive_n": 0
+    },
+    "paired_synthetic": {
+      "n_pools": 32,
+      "top1_success_rate": 0.90625,
+      "rank_2_8_success_rate": 0.8348214285714286,
+      "paired_top1_minus_rank_2_8": 0.07142857142857144,
+      "paired_delta_ci95": [
+        -0.008928571428571418,
+        0.1919642857142857
+      ],
+      "top1_selector_usable_false_positive_n": 3
+    }
+  },
+  "deadline_scope": {
+    "deadlines_seconds": [
+      6,
+      12,
+      18,
+      24,
+      30
+    ],
+    "worker_scenarios": [
+      1,
+      6
+    ],
+    "time_basis": "observed generation-request service times only; no queueing, selector/evaluator, or user-facing latency",
+    "scheduler": "candidate index order, launch a new request whenever one of the per-pool worker slots frees"
+  },
+  "validation": {
+    "status": "passed",
+    "checks": {
+      "candidate_rows": 816,
+      "timing_rows": 816,
+      "case_count": 24,
+      "cluster_count": 20,
+      "candidate_timing_keys_match": true,
+      "candidate_texts_present": true,
+      "timing_values_finite_positive_and_below_timeout": true,
+      "blind_review_examples": 4,
+      "blind_review_outputs": 8,
+      "review_packet_contains_no_candidate_judgment_fields": true,
+      "astra_review_items": 4,
+      "review_index_matches_packet": true
+    }
+  }
+}

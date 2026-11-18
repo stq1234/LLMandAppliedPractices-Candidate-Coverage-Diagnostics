@@ -1,0 +1,15 @@
+{
+  "description": "De-identified offline snapshot derived from the Homework 6 fixed test set.",
+  "cases": 24,
+  "clusters": 20,
+  "candidate_rows": 816,
+  "generation_timing_rows": 816,
+  "review_items": 4,
+  "review_packet_outputs": 8,
+  "review_packet_has_labels": false,
+  "astra_review_artifact": "astra_review.json",
+  "review_index": "review_index.json",
+  "mapping": "Original sample and group identifiers were replaced with sequential case/cluster identifiers; repeat seeds 17 and 43 were mapped to run1/run2.",
+  "source_data": "Homework 6 data/dataset.json (only used to select original snippets for the blind review packet), results/analysis/candidate_metrics.csv, and successful generation_*.json records.",
+  "excluded": "No source URLs/titles, glossary, constraints, prompts, request bodies, API endpoint, authorization material, request hashes, response identifiers, timestamps, or model identity fields are included. The original review packet is a separate, small, unlabeled set of source/output examples; the primary agent's subjective Astra judgments are preserved in the separate astra_review.json artifact."
+}
